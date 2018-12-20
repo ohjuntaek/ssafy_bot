@@ -1,0 +1,40 @@
+개발자
+
+OAuth
+xoxp-507725070581-507525005234-508433382051-5d9d9d4aedab8382da8acfedd120544f
+
+
+Bot User
+xoxb-507725070581-507800999808-62sw8nNayNNoPQ89CmBhFhkp
+
+
+http://6490e1d7.ngrok.io/listening
+
+#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(1) > article > a > div.event_info_area > div.title_area > h5
+
+
+#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(1) > article > a > div.event_info_area > div.title_area > h5
+
+
+title ellipsis
+
+#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(5) > article > a
+#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(5) > article > a
+
+
+
+설명
+---------------------------------------------------------------------------------------------------------------------
+질문						|답변
+---------------------------------------------------------------------------------------------------------------------
+온오프믹스			|온오프믹스 메인 사이트의 모임/세미나의 정보를 보여줍니다.
+onoffmix				|온오프믹스 메인 사이트의 모임/세미나의 정보를 보여줍니다.
+온오프믹스 :(단어)			|온오프믹스 검색 결과의 모임/세미나 정보를 보여줍니다.
+온오프믹스 :#(단어)			|온오프믹스 태그 검색 결과의 정보를 보여줍니다.
+페스타				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
+festa				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
+
+
+
+
+

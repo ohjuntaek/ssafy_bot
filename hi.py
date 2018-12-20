@@ -7,17 +7,39 @@ import requests
 
 from bs4 import BeautifulSoup
 from slackclient import SlackClient
-from flask import Flask, request, make_response, render_template
+from flask import Flask, request, make_response, render_template, jsonify
 
 app = Flask(__name__)
 
-slack_token = 'xoxb-507725070581-507736316784-t38CYmD3CyFuNV1g6SHkiBDB'
-slack_client_id = '507725070581.508303178532'
-slack_client_secret = '35a92591f70fb432bb296be978dd1c6b'
-slack_verification = 'T95rgjj3DWTCaMTLo6z8LsgN'
+slack_token = 'xoxb-507725070581-507800999808-62sw8nNayNNoPQ89CmBhFhkp'
+slack_client_id = '507725070581.507800820480'
+slack_client_secret = '3a03d175656b9e81e6cab273eee71186'
+slack_verification = 'ifVQbCEazpZzDLLrKVbfSldo'
 sc = SlackClient(slack_token)
 
-# 크롤링 함수
+def get_answer(text, user_key):
+    data_send = {
+        'query': text,
+        'sessionId': user_key,
+        'lang': 'ko',
+
+    }
+    data_header = {
+        'Authorization': 'Bearer 75878193acd643819852c272fd782a00',
+        'Content-Type':'application/json; charset=utf-8'
+    }
+    dialogflow_url = 'https://api.dialogflow.com/v1/query?v=20150910'
+
+    res = requests.post(dialogflow_url, data=json.dumps(data_send), headers=data_header)
+    if res.status_code != requests.codes['ok']:
+        return '오류가 발생했습니다.'
+
+    data_receive = res.json()
+    answer = data_receive['result']['fulfillment']['speech']
+
+    return answer
+
+# 크롤링 함수_온오프믹스
 def _crawl_portal_keywords(option):
     print("option input : ",option)
     
@@ -29,25 +51,46 @@ def _crawl_portal_keywords(option):
     sourcecode = requests.get(url, headers = {'User-Agent': 'Mozilla/5.0'})
     # sourcecode = urllib.request.urlopen(url).read()
 
-    soup = BeautifulSoup(sourcecode.text, "html.parser")
+    soup = BeautifulSoup(sourcecode.text, "lxml")
     # print(sourcecode.text)
     #함수를 구현해 주세요
 
     keywords = [i.get_text() for i in soup.find_all("h5", class_="title ellipsis")]
     
+    s = soup.select("ul > li > article > a")
+    links = [i.get("href") for i in s]
+    
+    # links = [i['href'].get_text() for i in soup.find_all("article > a",class_="event_area event_main")]
+    # print(links)
+    idkeywords = [str(i+1)+":"+keywords[i] for i in range(len(keywords))]
+    print(keywords[0], links[0], len(keywords), len(links), len(idkeywords))
+    idkeywordslinks = [idkeywords[i]+"\n 링크 : https://www.onoffmix.com"+links[i] for i in range(len(keywords))]
     print('LOG : print return')
     # 한글 지원을 위해 앞에 unicode u를 붙혀준다.
-    return u'\n'.join(keywords)
+    return u'\n'.join(idkeywordslinks)
 # 텍스트 분기시키는 함수
 def _branch_function(text):
-    print("input : ",text)
-    if '설명' in text:
-        print('설명')
-        pass
-    elif '온오프믹스' in text:
-        print('온오프믹스')
-        return 'https://www.onoffmix.com/'
+    print("input :",text)
     
+    if ('온오프믹스' or 'onoffmix' or 'dhsdhvmal') in text:
+        p = re.compile(r':\S+')
+        print(p.search(text))
+        if p.search(text):
+            w = p.search(text)[0][1:]
+            print("w",w)
+            from urllib import parse
+            q = parse.urlencode({'s' : w})
+            print(q)
+            return 'https://www.onoffmix.com/event/main?'+q, 2
+        else:
+            return 'https://www.onoffmix.com', 1
+    elif '페스타' or 'festa' in text:
+        return 'https://festa.io/', 3
+    elif '오키' or 'okky' in text:
+        return get_answer(text, 'user1'), 4
+    else:
+        print('설명')
+        return "SSAFY 짱", 0
     
 
 
@@ -60,16 +103,41 @@ def _event_handler(event_type, slack_event):
         channel = slack_event["event"]["channel"]
         text = slack_event["event"]["text"]
 
-        p = re.compile(r"\S+")
-        text2 = p.findall(text)[1]
-        option = _branch_function(text2)
+        p = re.compile(r"> .+")
+        text2 = p.search(text).group()[2:]
+
+
+        print("text2",text2)
+        url, option = _branch_function(text2)
         
-        keywords = _crawl_portal_keywords(option)
+        if option == 0:
+            keywords = '''
+설명
+===========================================================================
+질문						|답변
+---------------------------------------------------------------------------------------------------------------------
+온오프믹스			|온오프믹스 메인 사이트의 모임/세미나의 정보를 보여줍니다.
+onoffmix				|온오프믹스 메인 사이트의 모임/세미나의 정보를 보여줍니다.
+온오프믹스 :(단어)			|온오프믹스 검색 결과의 모임/세미나 정보를 보여줍니다.
+온오프믹스 :#(단어)			|온오프믹스 태그 검색 결과의 정보를 보여줍니다.
+페스타				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
+festa				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
+            '''
+        elif option == 3:
+            from crawling_festa import _crawl_festa
+            keywords = "링크 주소 :"+url+"\n"+_crawl_festa(url)
+        elif option == 4:
+            from crawling_festa import _crawl_okky
+            keywords = url+"\n"+_crawl_okky("https://okky.kr/articles/gathering")
+        else:
+            keywords = "링크 주소 :"+url+"\n"+_crawl_portal_keywords(url)
+        
         sc.api_call(
             "chat.postMessage",
             channel=channel,
             text=keywords
         )
+
 
         return make_response("App mention message has been sent", 200,)
 
@@ -101,9 +169,12 @@ def hears():
    return make_response("[NO EVENT IN SLACK REQUEST] These are not the droids\
                         you're looking for.", 404, {"X-Slack-No-Retry": 1})
 
-@app.route("/", methods=["GET"])
-def index():
-   return "<h1>Server is ready.</h1>"
+@app.route("/", methods=["POST","GET"])
+def index(c,u):
+    content = request.args.get('content')
+    userid = request.args.get('userid')
+
+    return "<h1>Server is ready.</h1><br>"+get_answer(content, userid)
 
 if __name__ == '__main__':
    app.run('127.0.0.1', port=8080)
