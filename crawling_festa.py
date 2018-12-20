@@ -1,15 +1,16 @@
 import json
 import re
 import requests
-
+import urllib.request
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
 def _crawl_festa(url):
-    req = urllib.request.Request(url)
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
+    req = urllib.request.Request(url, headers=headers)
+    
     # html = requests.get(url, headers = headers)
-    sourcecode = urllib.request.urlopen(url).read()
+    html = urllib.request.urlopen(req).read()
     soup = BeautifulSoup(html.text,"lxml")
 
     driver = webdriver.Chrome("./chromedriver.exe")

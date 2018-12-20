@@ -1,40 +1,188 @@
-개발자
+<!DOCTYPE html>
 
-OAuth
-xoxp-507725070581-507525005234-508433382051-5d9d9d4aedab8382da8acfedd120544f
+<!--[if lt IE 7 ]> <html lang="ko" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="ko" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="ko" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="ko" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="ko"><!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+<title>OKKY - 정기모임/스터디</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="//okky.kr/assets/favicon-4ddd8035b72404da5a8c298cbaacad86.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="//okky.kr/assets/icon_57x57-5611bd33d9f2b2d84c22219e248455b6.png" rel="apple-touch-icon"/>
+<link href="//okky.kr/assets/icon_114x114-b2b627dfde8a040fe54fd257244ba191.png" rel="apple-touch-icon" sizes="114x114"/>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
+<meta content="//okky.kr/assets/okky_logo_fb-cea175ff727ef14a4d8be0e68cff730a.png" property="og:image"/>
+<link href="//okky.kr/assets/application-6e874d95e249ce203e7e1769aae0fddf.css" rel="stylesheet">
+<!--[if lt IE 9]>
+            <script src="//okky.kr/assets/libs/html5-ca664f64318d191265abf57fdf467aec.js" type="text/javascript" ></script>
+        <![endif]-->
+<meta content="main_with_banner" name="layout"/>
+</link></head>
+<body>
+<div class="layout-container">
+<div class="main ">
+<div class="sidebar sidebar-category">
+<a class="sidebar-header" href="javascript://">
+<i class="fa fa-bars sidebar-header-icon"></i>
+</a>
+<h1><div class="logo"><a href="/"><img alt="OKKY" src="//okky.kr/assets/okjsp_logo-467f1484e489ca1133e6320083e1fb9f.png" title="OKKY"/></a></div></h1>
+<ul class="nav nav-sidebar nav-sidebar-search-wrapper" id="search-google-icon">
+<li class="nav-sidebar-search"><a class="link" data-toggle="popover" data-trigger="click" href="javascript://" id="search-google"><i class="fa fa-search"></i></a></li>
+</ul>
+<form action="https://www.google.com/search" class="nav-sidebar-form" id="search-google-form" name="searchMain">
+<div class="input-group">
+<input class="form-control input-sm" name="qt" placeholder="Google 검색" type="text"/>
+<input name="q" type="hidden"/>
+<span class="input-group-btn">
+<button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+<div class="nav-user nav-sidebar">
+<ul class="nav nav-sidebar">
+<li data-container="body" data-toggle="tooltip" title="로그인"><a class="link" href="/login/auth?redirectUrl=%2Farticles%2Fgathering"><i class="fa fa-sign-in"></i> <span class="nav-sidebar-label">로그인</span></a></li>
+<li data-container="body" data-toggle="tooltip" title="회원가입"><a class="link" href="/user/register"><i class="fa fa-user"></i> <span class="nav-sidebar-label">회원가입</span></a></li>
+</ul>
+</div>
+<ul class="nav nav-sidebar nav-main">
+<li data-container="body" data-placement="right" data-toggle="tooltip" title="Q&amp;A"><a class="link" href="/articles/questions"><i class="nav-icon fa fa-database"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Q&amp;A</span></a></li>
+<li data-container="body" data-placement="right" data-toggle="tooltip" title="Tech"><a class="link" href="/articles/tech"><i class="nav-icon fa fa-code"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Tech</span></a></li>
+<li class="active" data-container="body" data-placement="right" data-toggle="tooltip" title="커뮤니티"><a class="link" href="/articles/community"><i class="nav-icon fa fa-comments"></i> <span class="nav-sidebar-label nav-sidebar-category-label">커뮤니티</span></a></li>
+<li data-container="body" data-placement="right" data-toggle="tooltip" title="칼럼"><a class="link" href="/articles/columns"><i class="nav-icon fa fa-quote-left"></i> <span class="nav-sidebar-label nav-sidebar-category-label">칼럼</span></a></li>
+<li data-container="body" data-placement="right" data-toggle="tooltip" title="Jobs"><a class="link" href="/articles/jobs"><i class="nav-icon fa fa-group"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Jobs</span></a></li>
+</ul>
+<ul class="nav nav-sidebar nav-bottom">
+<li data-container="body" data-placement="right" data-toggle="tooltip" title="Github Issues"><a class="link" href="https://github.com/okjsp/okky/issues" target="_blank"><i class="fa fa-github"></i> <span class="nav-sidebar-label nav-sidebar-category-label">Github Issues</span></a></li>
+</ul>
+</div>
+<div class="sidebar-category-nav">
+<h3 class="sub-title">커뮤니티</h3>
+<ul class="nav">
+<li><a class="link" href="/articles/community"><span class="nav-sidebar-label nav-sidebar-category-label">All</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+<li><a class="link" href="/articles/notice"><span class="nav-sidebar-label nav-sidebar-category-label">공지사항</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+<li><a class="link" href="/articles/life"><span class="nav-sidebar-label nav-sidebar-category-label">사는얘기</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+<li><a class="link" href="/articles/forum"><span class="nav-sidebar-label nav-sidebar-category-label">포럼</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+<li><a class="link" href="/articles/event"><span class="nav-sidebar-label nav-sidebar-category-label">IT 행사</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+<li><a class="link" href="/articles/gathering"><span class="nav-sidebar-label nav-sidebar-category-label">정기모임/스터디</span> <span class="nav-indicator nav-selected"><span class="nav-selected-dot"></span></span></a></li>
+<li><a class="link" href="/articles/promote"><span class="nav-sidebar-label nav-sidebar-category-label">학원/홍보</span> <span class="nav-indicator "><span class="nav-selected-dot"></span></span></a></li>
+</ul>
+<div class="special-nav">
+</div>
+</div>
+<div class="content scaffold-list" id="list-article" role="main">
+<div class="nav" role="navigation">
+<a class="create btn btn-success btn-wide pull-right" href="/articles/gathering/create"><i class="fa fa-pencil"></i> New Article</a>
+<h4>정기모임/스터디</h4>
+<form action="/articles/gathering" id="category-filter-form" method="get" name="category-filter-form">
+<div class="category-filter-wrapper">
+<div class="category-filter-query pull-right">
+<div class="input-group input-group-sm">
+<input class="form-control" id="search-field" name="query" placeholder="검색어" type="search" value=""/>
+<span class="input-group-btn">
+<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+</span>
+</div>
+</div>
+<ul class="list-sort pull-left">
+<li><a class="category-sort-link active" data-order="desc" data-sort="id" href="/articles/gathering?sort=id&amp;order=desc">최신순</a></li>
+<li><a class="category-sort-link " data-order="desc" data-sort="voteCount" href="/articles/gathering?sort=voteCount&amp;order=desc">추천순</a></li>
+<li><a class="category-sort-link " data-order="desc" data-sort="noteCount" href="/articles/gathering?sort=noteCount&amp;order=desc">댓글순</a></li>
+<li><a class="category-sort-link " data-order="desc" data-sort="scrapCount" href="/articles/gathering?sort=scrapCount&amp;order=desc">스크랩순</a></li>
+<li><a class="category-sort-link " data-order="desc" data-sort="viewCount" href="/articles/gathering?sort=viewCount&amp;order=desc">조회순</a></li>
+</ul>
+<input id="category-sort-input" name="sort" type="hidden" value="id"/>
+<input id="category-order-input" name="order" type="hidden" value="desc"/>
+</div>
+</form>
+</div>
+<div class="okkys-choice">
+<div class="panel panel-default">
+<!-- Table -->
+<ul class="list-group">
+<li class="list-group-item list-group-item-question list-group-has-note clearfix">
+<div class="list-title-wrapper clearfix">
+<div class="list-tag clearfix">
+<span class="list-group-item-text article-id">#525814</span>
+<a class="list-group-item-text item-tag label label-info" href="/articles/notice"><i class="fa fa-comments"></i> 공지사항</a>
+<a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/OKKY">OKKY</a> <a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/정기모임/스터디">정기모임/스터디</a> <a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/불법게시물">불법게시물</a>
+</div>
+<h5 class="list-group-item-heading list-group-item-evaluate">
+<a href="/article/525814">
+
+                OKKY 정기모임/스터디 불법 게시물 공지사항
+            </a>
+</h5>
+</div>
+<div class="list-summary-wrapper clearfix">
+<div class="list-group-item-summary clearfix">
+<ul>
+<li class=""><i class="item-icon fa fa-comment "></i> 5</li>
+<li class="">
+<i class="item-icon fa fa-thumbs-up"></i> 16
+                    </li>
+<li class=""><i class="item-icon fa fa-eye"></i> 2k</li>
+</ul>
+</div>
+</div>
+<div class="list-group-item-author clearfix">
+<div class="avatar avatar-list clearfix "><a class="avatar-photo" href="/user/info/45597"><img src="//www.gravatar.com/avatar/b66da5ef6099211f5db8f5f7a3b4c36b?d=identicon&amp;s=30"/></a> <div class="avatar-info"><a class="nickname" href="/user/info/45597" title="OKKY">OKKY</a> <div class="activity"><span class="fa fa-flash"></span> 785</div><div class="date-created"><span class="timeago" title="2018-11-27 11:12:35.0">2018-11-27 11:12:35</span> </div> </div></div>
+</div>
+</li>
+<li class="list-group-item list-group-item-question list-group-no-note clearfix">
+<div class="list-title-wrapper clearfix">
+<div class="list-tag clearfix">
+<span class="list-group-item-text article-id">#522571</span>
+<a class="list-group-item-text item-tag label label-info" href="/articles/gathering"><i class="fa fa-comments"></i> 정기모임/스터디</a>
+<a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/스터디">스터디</a> <a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/개발스터디">개발스터디</a> <a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/개발자모임">개발자모임</a>
+</div>
+<h5 class="list-group-item-heading list-group-item-evaluate">
+<a href="/article/522571">
+
+                [러닛] 프로그래밍/데이터 사이언스 스터디 모집 안내
+            </a>
+</h5>
+</div>
+<div class="list-summary-wrapper clearfix">
+<div class="list-group-item-summary clearfix">
+<ul>
+<li class="item-icon-disabled"><i class="item-icon fa fa-comment "></i> 0</li>
+<li class="">
+<i class="item-icon fa fa-thumbs-up"></i> 2
+                    </li>
+<li class=""><i class="item-icon fa fa-eye"></i> 2k</li>
+</ul>
+</div>
+</div>
+<div class="list-group-item-author clearfix">
+<div class="avatar avatar-list clearfix "><a class="avatar-photo" href="/user/info/64170"><img src="//www.gravatar.com/avatar/f9452011bb6d11a5fc8964cf69d15bf6?d=identicon&amp;s=30"/></a> <div class="avatar-info"><a class="nickname" href="/user/info/64170" title="러닛">러닛</a> <div class="activity"><span class="fa fa-flash"></span> 430</div><div class="date-created"><span class="timeago" title="2018-11-18 16:14:51.0">2018-11-18 16:14:51</span> </div> </div></div>
+</div>
+</li>
+<li class="list-group-item list-group-item-question list-group-no-note clearfix">
+<div class="list-title-wrapper clearfix">
+<div class="list-tag clearfix">
+<span class="list-group-item-text article-id">#510379</span>
+<a class="list-group-item-text item-tag label label-info" href="/articles/gathering"><i class="fa fa-comments"></i> 정기모임/스터디</a>
+<a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/스터디">스터디</a> <a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/개발자스터디">개발자스터디</a> <a class="list-group-item-text item-tag label label-gray" href="/articles/tagged/개발자공부">개발자공부</a>
+</div>
+<h5 class="list-group-item-heading list-group-item-evaluate">
+<a href="/article/510379">
+
+                Online Study '스터디파이' 할인 혜택 안내
+            </a>
+</h5>
+</div>
+<div class="list-summary-wrapper clearfix">
+<div class="list-group-item-summary clearfix">
+<ul>
+<li class="item-icon-disabled"><i class="item-icon fa fa-comment "></i> 0</li>
+<li class="item-icon-disabled">
+<i class="item-icon fa fa-thumbs-up"></i> 0
+                    </li>
+<li class=""><i class="item-icon fa fa-eye"
 
 
-Bot User
-xoxb-507725070581-507800999808-62sw8nNayNNoPQ89CmBhFhkp
-
-
-http://6490e1d7.ngrok.io/listening
-
-#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(1) > article > a > div.event_info_area > div.title_area > h5
-
-
-#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(1) > article > a > div.event_info_area > div.title_area > h5
-
-
-title ellipsis
-
-#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(5) > article > a
-#content > div > section.main_section > section.pick_up_area > ul > li:nth-child(5) > article > a
-
-
-
-설명
----------------------------------------------------------------------------------------------------------------------
-질문						|답변
----------------------------------------------------------------------------------------------------------------------
-온오프믹스			|온오프믹스 메인 사이트의 모임/세미나의 정보를 보여줍니다.
-onoffmix				|온오프믹스 메인 사이트의 모임/세미나의 정보를 보여줍니다.
-온오프믹스 :(단어)			|온오프믹스 검색 결과의 모임/세미나 정보를 보여줍니다.
-온오프믹스 :#(단어)			|온오프믹스 태그 검색 결과의 정보를 보여줍니다.
-페스타				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
-festa				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
-
-
-
-
-
+{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
