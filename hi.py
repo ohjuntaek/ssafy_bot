@@ -9,20 +9,48 @@ from bs4 import BeautifulSoup
 from slackclient import SlackClient
 from flask import Flask, request, make_response, render_template, jsonify
 
+import multiprocessing as mp
+from threading import Thread
+import time
+from datetime import datetime, timedelta
+
+
 app = Flask(__name__)
 
-slack_token = 'xoxb-507725070581-507800999808-62sw8nNayNNoPQ89CmBhFhkp'
-slack_client_id = '507725070581.507800820480'
-slack_client_secret = '3a03d175656b9e81e6cab273eee71186'
-slack_verification = 'ifVQbCEazpZzDLLrKVbfSldo'
+slack_token = 'xoxb-507725070581-509337063188-4B2dlNiaypkubaIFJubwKUsd'
+slack_client_id = '507725070581.510907025158'
+slack_client_secret = '84c1760c4c34aa394d931595be57c1f4'
+slack_verification = 'qXIrHbajFWXzXpgOFQVSo60D'
 sc = SlackClient(slack_token)
+
+# threading function
+def processing_event(queue):
+   while True:
+       # 큐가 비어있지 않은 경우 로직 실행
+       if not queue.empty():
+           slack_event = queue.get()
+
+           # Your Processing Code Block gose to here
+           channel = slack_event["event"]["channel"]
+           text = slack_event["event"]["text"]
+
+           # 챗봇 크롤링 프로세스 로직 함수
+           keywords = _crawl_portal_keywords(text)
+
+
+           # 아래에 슬랙 클라이언트 api를 호출하세요
+           sc.api_call(
+               "chat.postMessage",
+               channel=channel,
+               text=keywords
+           )
+
 
 def get_answer(text, user_key):
     data_send = {
         'query': text,
         'sessionId': user_key,
-        'lang': 'ko',
-
+        'lang': 'ko'
     }
     data_header = {
         'Authorization': 'Bearer 75878193acd643819852c272fd782a00',
@@ -36,8 +64,10 @@ def get_answer(text, user_key):
 
     data_receive = res.json()
     answer = data_receive['result']['fulfillment']['speech']
+    print(data_receive)
+    params = data_receive['result']['parameters']
 
-    return answer
+    return answer, params
 
 # 크롤링 함수_온오프믹스
 def _crawl_portal_keywords(option):
@@ -84,10 +114,10 @@ def _branch_function(text):
             return 'https://www.onoffmix.com/event/main?'+q, 2
         else:
             return 'https://www.onoffmix.com', 1
-    elif '페스타' or 'festa' in text:
+    elif '페스타' in text:
         return 'https://festa.io/', 3
-    elif '오키' or 'okky' in text:
-        return get_answer(text, 'user1'), 4
+    elif '오키' in text:
+        return "테스트중..", 4
     else:
         print('설명')
         return "SSAFY 짱", 0
@@ -150,11 +180,14 @@ festa				|festa.io사이트의 모임/세미나 정보를 보여줍니다.
 @app.route("/listening", methods=["GET", "POST"])
 def hears():
    slack_event = json.loads(request.data)
+   if slack_event['event_time'] < (datetime.now() - timedelta(seconds=1)).timestamp():
+        return make_response("this message is before sent.", 200, {"X-Slack-No-Retry": 1})
+
 
    if "challenge" in slack_event:
        return make_response(slack_event["challenge"], 200, {"content_type":
-                                                            "application/json"
-                                                           })
+                                                                "application/json"
+                                                            })
 
    if slack_verification != slack_event.get("token"):
        message = "Invalid Slack verification token: %s" % (slack_event["token"])
@@ -167,14 +200,21 @@ def hears():
    # If our bot hears things that are not events we've subscribed to,
    # send a quirky but helpful error response
    return make_response("[NO EVENT IN SLACK REQUEST] These are not the droids\
-                        you're looking for.", 404, {"X-Slack-No-Retry": 1})
+                       you're looking for.", 404, {"X-Slack-No-Retry": 1})
 
 @app.route("/", methods=["POST","GET"])
 def index(c,u):
     content = request.args.get('content')
     userid = request.args.get('userid')
 
-    return "<h1>Server is ready.</h1><br>"+get_answer(content, userid)
+    return "<h1>Server is ready.</h1><br>"
 
 if __name__ == '__main__':
+   event_queue = mp.Queue()
+
+   p = Thread(target=processing_event, args=(event_queue,))
+   p.start()
+   print("subprocess started")
+
    app.run('127.0.0.1', port=8080)
+   p.join()
